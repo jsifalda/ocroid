@@ -6,7 +6,8 @@ Uploader = require '../lib/Uploader'
 
 UploaderStore = Fluxxor.createStore {
 
-  initialize: (@Textes) ->
+  initialize: () ->
+
     @files = []
 
     @bindActions constants.ADD_FILE, @onAddFile,
@@ -44,7 +45,7 @@ UploaderStore = Fluxxor.createStore {
 
         for name, text of res.result
 
-          @Textes.actions.addText {
+          @flux.actions.addText {
             name: name
             text: text
           }
