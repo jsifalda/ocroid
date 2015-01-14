@@ -1,0 +1,3 @@
+https://github.com/heroku/heroku-buildpack-nodejs.git
+https://github.com/cynektix/heroku-lib-tiff-jpeg-buildpack.git
+https://github.com/jsifalda/heroku-buildpack-tesseract.git

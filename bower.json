@@ -1,0 +1,55 @@
+{
+  "name": "ocr",
+  "version": "0.0.0",
+  "authors": [
+    "jsifalda <sifalda.jiri@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib/client/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bluebird": "~2.3.11",
+    "underscore": "~1.7.0",
+    "react": "~0.12.2",
+    "jquery": "~2.1.3",
+    "fluxxor": "~1.5.1"
+  },
+
+  "overrides": {
+    "fluxxor": {
+      "main": {
+        "production": "build/fluxxor.min.js"
+      }
+    },
+    "jquery": {
+      "main": {
+        "production": "dist/jquery.min.js"
+      }
+    },
+    "react": {
+      "main": {
+        "production": "react.js"
+      }
+    },
+    "underscore": {
+      "main": {
+        "production": "underscore.js"
+      }
+    },
+    "bluebird": {
+      "main": {
+        "production": "js/browser/bluebird.js"
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+doctype html
+html
+	head
+		title OCR zdarma s podporou češtiny!
+		meta(http-equiv='content-type', content='text/html; charset=utf-8')
+		meta(name='description', content='')
+		meta(name='keywords', content='')
+		<!--[if lte IE 8]><script src="/assets/css/ie/html5shiv.js"></script><![endif]-->
+		
+		noscript
+			link(rel='stylesheet', href='/assets/css/skel.css')
+			link(rel='stylesheet', href='/assets/css/style.css')
+			link(rel='stylesheet', href='/assets/css/style-desktop.css')
+		<!--[if lte IE 8]><link rel="stylesheet" href="/assets/css/ie/v8.css" /><![endif]-->
+
+	body.homepage
+		// Header
+		#header-wrapper.wrapper
+			#header
+				// Logo
+				#logo
+					#content
+					// <h1>OCR</h1>
+				// Nav
+				nav#nav
+					ul
+						li.current
+							a Test
+		// Main
+		.wrapper.style2
+			.title The Details
+			#main.container
+				// Features
+				section#features
+					header.style1
+						h2 Dolor consequat feugiat amet veroeros
+						p Feugiat dolor nullam orci pretium phasellus justo
+
+					#text-list
+
+		// Footer
+		#footer-wrapper.wrapper
+			#copyright
+				ul
+					li &copy; Untitled
+
+	include ./inc/config
+
+	script(src="/js/1_lib.js")
+
+	script(src='/assets/js/jquery.dropotron.min.js')
+	script(src='/assets/js/skel.min.js')
+	script(src='/assets/js/skel-layers.min.js')
+	script(src='/assets/js/init.js')
+
+	script(src="/js/main.js")

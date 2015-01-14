@@ -1,0 +1,5 @@
+dist/*
+temp/*
+tmp/*
+lib/client/bower/*
+node_modules

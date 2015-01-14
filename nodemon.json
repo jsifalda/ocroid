@@ -1,0 +1,20 @@
+{
+  "verbose": true,
+  "ignore": [
+  	"scripts/*", 
+  	"fixtures/*", 
+  	"gulp/*", 
+  	"src/*", 
+  	"node_modules/*", 
+  	".git/*",
+    "lib/*",
+    "test/*",
+  	"dist/public/test/*",
+  	"dist/templates/*",
+    "dist/public/assets/css/*",
+    "dist/public/assets/fonts/*",
+    "dist/public/assets/images/*",
+    "dist/public/assets/songs/*",
+    "dist/public/js/*"
+  ]
+}
