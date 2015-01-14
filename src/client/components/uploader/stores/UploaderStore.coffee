@@ -6,71 +6,62 @@ Uploader = require '../lib/Uploader'
 
 UploaderStore = Fluxxor.createStore {
 
-	initialize : (@Textes) ->
+  initialize: (@Textes) ->
+    @files = []
 
-		@files = []
-		
-		@bindActions constants.ADD_FILE, @onAddFile,
-								constants.ADD_FILES, @onAddFiles,
-								constants.FORM_SUBMIT, @onFormSubmit
+    @bindActions constants.ADD_FILE, @onAddFile,
+      constants.ADD_FILES, @onAddFiles,
+      constants.FORM_SUBMIT, @onFormSubmit
 
-	onAddFiles : (payload) ->
+  onAddFiles: (payload) ->
+    if payload.files and payload.files.length
 
-		if payload.files and payload.files.length
+      for file in payload.files
 
-			for file in payload.files
+        @onAddFile {
+          file: file
+        }
 
-				@onAddFile {
-					file : file
-				}
+  onClearFiles: () ->
+    @files = []
 
-	onClearFiles : () ->
+    @emit 'change'
 
-		@files = []
+  onAddFile: (payload) ->
+    @files.push payload.file
 
-		@emit 'change'
+    @emit 'change'
 
-	onAddFile : (payload) ->
+  onFormSubmit: (payload) ->
+    files = @files
 
-		@files.push payload.file
+    @onClearFiles()
 
-		@emit 'change'
+    uploader = new Uploader '/ocr/v1/file'
+    uploader.upload files
+    .then (res) =>
+      if res and res.result
 
-	onFormSubmit : (payload) ->
+        for name, text of res.result
 
-		files = @files
+          @Textes.actions.addText {
+            name: name
+            text: text
+          }
 
-		@onClearFiles()
+    .catch (error) ->
+      console.log error
 
-		uploader = new Uploader '/ocr/v1/file'
-		uploader.upload files
-		.then (res) =>
-			
-			if res and res.result
+    .finally () =>
+      @emit 'change'
 
-				for name, text of res.result
-					
-					@Textes.actions.addText {
-						name : name
-						text : text
-					}
+  getState: () ->
+    return {
 
-		.catch (error) ->
+    files: @files
+    textes: @textes
 
-			console.log error
-
-		.finally () =>
-
-			@emit 'change'
-
-	getState : () ->
-
-		return {
-
-			files : @files
-			textes : @textes
-
-		}
+    }
 
 }
 

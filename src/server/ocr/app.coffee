@@ -10,11 +10,11 @@ endpoints = endpointsBuilder controllers
 
 for route, methods of endpoints
 
-	route = router.route route
+  route = router.route route
 
-	for method, config of methods
+  for method, config of methods
 
-		route[method](config.controller)
+    route[method](config.controller)
 
 app.use '/ocr', router
 

@@ -4,23 +4,20 @@ constants = require '../actions/constants'
 
 TextesStore = Fluxxor.createStore {
 
-	initialize : () ->
+  initialize: () ->
+    @textes = []
 
-		@textes = []
+    @bindActions constants.ADD_TEXT, @onAddText
 
-		@bindActions constants.ADD_TEXT, @onAddText
+  onAddText: (payload) ->
+    @textes.push payload.text
 
-	onAddText : (payload) ->
+    @emit 'change'
 
-		@textes.push payload.text
-
-		@emit 'change'
-
-	getState : () ->
-
-		return {
-			textes : @textes
-		}
+  getState: () ->
+    return {
+    textes: @textes
+    }
 }
 
 module.exports = TextesStore

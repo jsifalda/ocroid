@@ -6,16 +6,15 @@ TextesStore = require './stores/TextesStore'
 
 module.exports = {
 
-	createFlux : () ->
+  createFlux: () ->
+    stores = {
+      TextesStore: new TextesStore
+    }
 
-		stores = {
-			TextesStore : new TextesStore
-		}
+    flux = new Fluxxor.Flux stores, actions
 
-		flux = new Fluxxor.Flux stores, actions
+    flux.on "dispatch", (type, payload) ->
+      console.log "[Dispatch]", type, payload  if console and console.log
 
-		flux.on "dispatch", (type, payload) ->
-			console.log "[Dispatch]", type, payload  if console and console.log
-
-		return flux
+    return flux
 }

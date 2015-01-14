@@ -5,18 +5,17 @@ actions = require './actions'
 
 module.exports = {
 
-	createFlux : (TextesStore) ->
+  createFlux: (TextesStore) ->
+    buildStores = {
 
-		buildStores = {
-			
-			UploaderStore : new stores.UploaderStore TextesStore
+      UploaderStore: new stores.UploaderStore TextesStore
 
-		}
+    }
 
-		flux = new Fluxxor.Flux buildStores, actions
+    flux = new Fluxxor.Flux buildStores, actions
 
-		flux.on "dispatch", (type, payload) ->
-			console.log "[Dispatch]", type, payload  if console and console.log
+    flux.on "dispatch", (type, payload) ->
+      console.log "[Dispatch]", type, payload  if console and console.log
 
-		return flux
+    return flux
 }

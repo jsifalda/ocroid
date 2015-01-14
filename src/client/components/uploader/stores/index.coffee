@@ -1,5 +1,5 @@
 module.exports = {
 
-	UploaderStore : require './UploaderStore'
+  UploaderStore: require './UploaderStore'
 
 }

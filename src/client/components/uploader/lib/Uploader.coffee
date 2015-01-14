@@ -2,37 +2,32 @@ Promise = require 'bluebird'
 $ = require 'jQuery'
 
 class Uploader
-	
-	constructor: (@endpoint) ->
 
-	createFormData : (files) ->
+  constructor: (@endpoint) ->
 
-		formData = new FormData()
+  createFormData: (files) ->
+    formData = new FormData()
 
-		if files and files.length
-			for file in files
-				formData.append 'image', file
+    if files and files.length
+      for file in files
+        formData.append 'image', file
 
-		return formData
-		
-	upload : (files) ->
+    return formData
 
-		return new Promise (resolve, reject) =>
+  upload: (files) ->
+    return new Promise (resolve, reject) =>
+      $.ajax {
+        url: @endpoint
+        type: 'POST'
+        data: @createFormData files
+        processData: false
+        contentType: false
+        success: (res) ->
+          resolve res
 
-			$.ajax {
-				url : @endpoint
-				type : 'POST'
-				data : @createFormData files
-				processData : false
-				contentType : false
-				success : (res) ->
-					
-					resolve res
+        error: (error) ->
+          reject error
+      }
 
-				error : (error) ->
-					
-					reject error
-			}
 
-	
 module.exports = Uploader

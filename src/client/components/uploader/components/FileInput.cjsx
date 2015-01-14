@@ -3,25 +3,25 @@ Fluxxor = require 'fluxxor'
 
 FileInput = React.createClass {
 
-	mixins : [Fluxxor.FluxMixin(React), Fluxxor.StoreWatchMixin('UploaderStore')]
+  mixins : [Fluxxor.FluxMixin(React), Fluxxor.StoreWatchMixin('UploaderStore')]
 
-	getStateFromFlux : () ->
+  getStateFromFlux : () ->
 
-		return @getFlux().store("UploaderStore").getState()
+    return @getFlux().store("UploaderStore").getState()
 
-	getInitialState : () ->
+  getInitialState : () ->
 
-		return {
-			value : null
-		}
+    return {
+      value : null
+    }
 
-	handleChange : (e) ->
+  handleChange : (e) ->
 
-		@getFlux().actions.addFiles e.target.files
+    @getFlux().actions.addFiles e.target.files
 
-	render : () ->
+  render : () ->
 
-		<input type='file' name='image' accept='image/*' onChange=@handleChange value=@state.value />
+    <input type='file' name='image' accept='image/*' onChange=@handleChange value=@state.value />
 
 }
 

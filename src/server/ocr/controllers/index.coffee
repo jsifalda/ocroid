@@ -1,7 +1,7 @@
 module.exports = {
 
-	UploadFile : require './UploadFile'
+  UploadFile: require './UploadFile'
 
-	UploadFileData : require './UploadFileData'
-	
+  UploadFileData: require './UploadFileData'
+
 }

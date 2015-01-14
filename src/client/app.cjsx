@@ -10,9 +10,9 @@ UploadForm = require './components/uploader/UploadForm'
 
 Application = React.createClass {
 
-	render : () ->
+  render : () ->
 
-		<UploadForm flux = uploader />
+    <UploadForm flux = uploader />
 }
 
 React.render <Application />, document.getElementById 'content'

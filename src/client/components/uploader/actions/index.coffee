@@ -2,24 +2,20 @@ constants = require './constants'
 
 module.exports = {
 
-	addFile : (file) ->
+  addFile: (file) ->
+    @dispatch constants.ADD_FILE, {
+      file: file
+    }
 
-		@dispatch constants.ADD_FILE, {
-			file : file
-		}
+  addFiles: (files) ->
+    @dispatch constants.ADD_FILES, {
+      files: files
+    }
 
-	addFiles : (files) ->
+  clearFiles: () ->
+    @dispatch constants.CLEAR_FILES, {}
 
-		@dispatch constants.ADD_FILES, {
-			files : files
-		}
-
-	clearFiles : () ->
-
-		@dispatch constants.CLEAR_FILES, {}
-
-	formSubmit : () ->
-
-		@dispatch constants.FORM_SUBMIT, {}
+  formSubmit: () ->
+    @dispatch constants.FORM_SUBMIT, {}
 
 }

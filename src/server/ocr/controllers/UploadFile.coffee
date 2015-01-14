@@ -2,43 +2,38 @@ Promise = require 'bluebird'
 OcrProcessor = require '../lib/OcrProcessor'
 
 module.exports = (req, res) ->
+  if req.files
 
-	if req.files
+    processor = new OcrProcessor
 
-		processor = new OcrProcessor
+    promises = []
 
-		promises = []
+    for name, file of req.files
 
-		for name, file of req.files
+      console.log '-------------'
+      console.log 'proccess file', name, file
 
-			console.log '-------------'
-			console.log 'proccess file', name, file
+      promises.push new Promise (resolve, reject) ->
+        processor.process file.path, ['ces', 'eng']
+        .then (text) ->
+          resolve {
+            text: text
+            name: file.originalFilename
+          }
 
-			promises.push new Promise (resolve, reject) ->
-				
-				processor.process file.path, ['ces', 'eng']
-				.then (text) ->
+        .catch (error) ->
+          reject error
 
-					resolve {
-						text : text
-						name : file.originalFilename
-					}
+    Promise.all promises
+    .then (results) ->
+      response = {
+        textes: []
+        result: {}
+      }
 
-				.catch (error) ->
+      for result in results
 
-					reject error
+        response.textes.push result.text
+        response.result[result.name] = result.text
 
-		Promise.all promises
-		.then (results) ->
-
-			response = {
-				textes : []
-				result : {}
-			}
-
-			for result in results
-
-				response.textes.push result.text
-				response.result[result.name] = result.text
-
-			res.send response
+      res.send response

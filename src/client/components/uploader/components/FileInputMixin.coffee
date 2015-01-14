@@ -1,22 +1,18 @@
 module.exports = {
 
-	componentWillMount : () ->
+  componentWillMount: () ->
+    @files = []
 
-		@files = []
+  addFile: (file) ->
+    @files.push file
 
-	addFile : (file) ->
+  getFiles: () ->
+    return @files
 
-		@files.push file
+  handleFileChange: (e) ->
+    if e.target.files and e.target.files.length
 
-	getFiles : () ->
+      for file in e.target.files
 
-		return @files
-
-	handleFileChange : (e) ->
-
-		if e.target.files and e.target.files.length
-
-			for file in e.target.files
-
-				@addFile file
+        @addFile file
 }

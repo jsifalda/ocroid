@@ -2,9 +2,9 @@ React = require 'React'
 
 SubmitButton = React.createClass {
 
-	render : () ->
+  render : () ->
 
-		<input type="submit" className="style1"></input>
+    <input type="submit" className="style1"></input>
 
 }
 

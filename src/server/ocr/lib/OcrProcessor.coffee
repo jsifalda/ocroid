@@ -2,24 +2,20 @@ nodecr = require "nodecr"
 Promise = require 'bluebird'
 
 class OcrProccessor
-	
-	process : (path, lang = 'eng') ->
 
-		if lang instanceof Array
-			lang = lang.join '+'
+  process: (path, lang = 'eng') ->
+    if lang instanceof Array
+      lang = lang.join '+'
 
-		return new Promise (resolve, reject) =>
+    return new Promise (resolve, reject) =>
+      nodecr.process path, (err, text) ->
+        if err
 
-			nodecr.process path, (err, text) ->
+          reject err
 
-				if err
+        else
+          resolve text
 
-					reject err
-
-				else
-
-					resolve text
-
-			, lang
+      , lang
 
 module.exports = OcrProccessor

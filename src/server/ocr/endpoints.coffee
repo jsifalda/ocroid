@@ -1,19 +1,14 @@
 builder = (controllers) ->
+  return {
 
-	return {
+  '/v1/file':
+    post:
+      controller: controllers.UploadFile
 
-		'/v1/file' : 
+  '/v1/file/data':
+    post:
+      controller: controllers.UploadFileData
 
-			post : 
-
-				controller : controllers.UploadFile
-
-		'/v1/file/data' : 
-
-			post : 
-
-				controller : controllers.UploadFileData
-
-	}
+  }
 
 module.exports = builder
