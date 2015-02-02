@@ -9,6 +9,6 @@ gulp.task 'webpack/app', () ->
 
 	webpackConfig = webpackConfigBuilder config
 
-	gulp.src dictionaries.src.client + '/app.cjsx'
+	gulp.src dictionaries.src.client + '/index.coffee'
 	.pipe webpack webpackConfig
 	.pipe gulp.dest dictionaries.dest.public + '/js'

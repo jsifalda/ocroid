@@ -1,23 +1,17 @@
-Fluxxor = require 'fluxxor'
+riot = require 'riot'
+RiotControl = require 'riot-control'
 
-constants = require '../actions/constants'
+TextesStore = () ->
 
-TextesStore = Fluxxor.createStore {
+  @textes = []
 
-  initialize: () ->
-    @textes = []
+  riot.observable @
 
-    @bindActions constants.ADD_TEXT, @onAddText
+  @on 'addText', (text) =>
 
-  onAddText: (payload) ->
-    @textes.push payload.text
+    @textes.push text
 
-    @emit 'change'
+    RiotControl.trigger 'textesUpdated', @textes
 
-  getState: () ->
-    return {
-    textes: @textes
-    }
-}
 
 module.exports = TextesStore

@@ -19,7 +19,8 @@
     "main-bower-files": "^2.4.1",
     "nodecr": "0.0.5",
     "scripts-loader": "^0.1.0",
-    "webpack": "^1.4.14"
+    "tag-loader": "^0.2.3",
+    "webpack": "^1.5.3"
   },
   "scripts": {
     "postinstall": "node node_modules/bower/bin/bower install; node node_modules/gulp/bin/gulp.js production"

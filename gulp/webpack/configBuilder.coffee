@@ -1,57 +1,60 @@
 webpack = require 'webpack'
 
 module.exports = (config) ->
-	
-	isProduction = ->
-		return true  if config.env is "production"
-		false
+  
+  isProduction = ->
+    return true  if config.env is "production"
+    false
 
-	context: config.root
-	module:
-		loaders: [
-			{
-				test: /\.coffee$/
-				loader: "coffee-loader"
-				exclude : /node_modules/
-			}
+  entry : config.root + '/src/client/index'
+  context: config.root
+  module:
+    loaders: [
+      {
+        test: /\.coffee$/
+        loader: "coffee-loader"
+        exclude : /node_modules/
+      }
 
-			{
-				test: /\.cjsx$/
-				loader: "coffee-jsx-loader"
-				exclude : /node_modules/
-			}
+      {
+        test: /\.tag$/ 
+        loader: "tag"
+        exclude : /node_modules/
+        query : 
+          type : 'coffeescript'
+      }
+      
+      {
+        test: /\.js$/ # loaders can take parameters as a querystring
+        loader: "jsx-loader?harmony"
+        exclude : /node_modules/
+      }
+    ]
 
-			{
-				test: /\.js$/ # loaders can take parameters as a querystring
-				loader: "jsx-loader?harmony"
-				exclude : /node_modules/
-			}
-		]
+  output:
+    path: config.root
+    filename: "[name].js" # Template based on keys in entry above
 
-	output:
-		path: config.root
-		filename: "[name].js" # Template based on keys in entry above
+  watch: (if isProduction() then false else true)
 
-	watch: (if isProduction() then false else true)
+  externals : {
+    "React" : "React"
+    "jQuery" : "jQuery"
+    "bluebird" : "Promise"
+    "fluxxor" : "Fluxxor"
+    "riot" : "riot"
+    "riot-control" : "RiotControl"
+    "underscore" : "_"
+  }
 
-	externals : {
-		"React" : "React"
-		"jQuery" : "jQuery"
-		"bluebird" : "Promise"
-		"fluxxor" : "Fluxxor"
-	}
+  resolve:
 
-	plugins : [
-	]
-
-	resolve:
-
-		# root : config.root + '/lib/client/bower'
-		
-		extensions: [
-			""
-			".js"
-			".json"
-			".coffee"
-			".cjsx"
-		]
+    # root : config.root + '/lib/client/bower'
+    
+    extensions: [
+      ""
+      ".js"
+      ".json"
+      ".coffee"
+      ".cjsx"
+    ]

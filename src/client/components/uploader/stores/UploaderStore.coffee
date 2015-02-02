@@ -1,69 +1,40 @@
-Fluxxor = require 'fluxxor'
-
-constants = require '../actions/constants'
+riot = require 'riot'
+RiotControl = require 'riot-control'
 
 Uploader = require '../lib/Uploader'
 
-UploaderStore = Fluxxor.createStore {
-
-  initialize: () ->
+UploaderStore = () ->
 
     @files = []
+    
+    riot.observable @
 
-    @bindActions constants.ADD_FILE, @onAddFile,
-      constants.ADD_FILES, @onAddFiles,
-      constants.FORM_SUBMIT, @onFormSubmit
+    @on 'formSubmit', () =>
 
-  onAddFiles: (payload) ->
-    if payload.files and payload.files.length
+      uploader = new Uploader '/ocr/v1/file'
+      uploader.upload @files
+      .then (res) =>
+        
+        if res and res.result
+          for name, text of res.result
 
-      for file in payload.files
+            console.log name, text
 
-        @onAddFile {
-          file: file
-        }
+            RiotControl.trigger 'addText', {
+              name: name
+              text: text
+            }
+        
+        @files = []
 
-  onClearFiles: () ->
-    @files = []
+      .catch (error) ->
+        console.log error
 
-    @emit 'change'
+    @on 'addFile', (file) =>
 
-  onAddFile: (payload) ->
-    @files.push payload.file
+      @files.push file
 
-    @emit 'change'
+      console.log 'added file', @files
 
-  onFormSubmit: (payload) ->
-    files = @files
-
-    @onClearFiles()
-
-    uploader = new Uploader '/ocr/v1/file'
-    uploader.upload files
-    .then (res) =>
-      if res and res.result
-
-        for name, text of res.result
-
-          @flux.actions.addText {
-            name: name
-            text: text
-          }
-
-    .catch (error) ->
-      console.log error
-
-    .finally () =>
-      @emit 'change'
-
-  getState: () ->
-    return {
-
-    files: @files
-    textes: @textes
-
-    }
-
-}
-
+  
 module.exports = UploaderStore
