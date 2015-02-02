@@ -12,16 +12,19 @@ module.exports = (config) ->
 			{
 				test: /\.coffee$/
 				loader: "coffee-loader"
+				exclude : /node_modules/
 			}
 
 			{
 				test: /\.cjsx$/
 				loader: "coffee-jsx-loader"
+				exclude : /node_modules/
 			}
 
 			{
 				test: /\.js$/ # loaders can take parameters as a querystring
 				loader: "jsx-loader?harmony"
+				exclude : /node_modules/
 			}
 		]
 
